@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { createEvent } from "../controllers/eventcontroller";
+import { createEvent,documentcount } from "../controllers/eventcontroller";
 
 const router = Router()
 
 router.post('/eventcreate',createEvent)
+router.get('/documentcount',documentcount)
 
 export default router

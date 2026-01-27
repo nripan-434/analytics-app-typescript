@@ -1,6 +1,6 @@
 import {Request,Response} from 'express'
-import { AnalyticsEvent } from '../models/eventmodel'
-export const createEvent = (req: Request, res: Response) => {
+import { EventModel } from '../models/eventmodel';
+export const createEvent =async (req: Request, res: Response) => {
     const { type, userId, page } = req.body;
 
     if (!type || !userId || !page) {
@@ -15,9 +15,16 @@ export const createEvent = (req: Request, res: Response) => {
         });
     }
 
-    console.log("received", { type, userId, page });
+    const event =await EventModel.create({
+        type,userId,page
+    })
 
     return res.status(201).json({
         message: "event created"
     });
 };
+
+export const documentcount=async(req:Request,res:Response)=>{
+        const count = await EventModel.countDocuments();
+  res.json({ totalEvents: count });
+}
